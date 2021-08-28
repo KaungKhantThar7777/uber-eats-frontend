@@ -1,13 +1,26 @@
 @tailwind base;
 @tailwind components;
 
-.input {
-  @apply p-3 bg-gray-50  rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600;
+@layer components {
+  .input {
+    @apply px-5 py-3 border w-full focus:outline-none focus:border-gray-800 transition-colors;
+  }
+  .btn {
+    @apply py-3 text-white  transition-colors;
+  }
+  .btn-primary {
+    @apply bg-lime-600 hover:bg-lime-700;
+  }
+
+  .btn-disabled {
+    @apply bg-gray-300 pointer-events-none;
+  }
+  .form-error {
+    @apply text-center text-red-600 font-medium;
+  }
+  .link {
+    @apply text-lime-500 hover:underline;
+  }
 }
-.btn {
-  @apply p-2 bg-gray-800 text-white  rounded-lg hover:bg-gray-700 transition;
-}
-.form-error {
-  @apply text-center text-red-600 font-medium;
-}
+
 @tailwind utilities;
