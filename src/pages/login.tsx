@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 import uberLogo from "../images/uber-eat-logo.svg";
 import { authToken, isLoggedInVar } from "../apollo";
 import { LOCATSTORAGE_TOKEN } from "../constants";
+import { useMe } from "../hooks/useMe";
 
 interface ILoginForm {
   email: string;
@@ -31,14 +32,17 @@ function Login() {
     mode: "onBlur",
   });
 
+  const { refetch } = useMe();
+
   const onCompleted = ({ login: { token } }: LoginMutation) => {
     if (token) {
       localStorage.setItem(LOCATSTORAGE_TOKEN, token);
       authToken(token);
       isLoggedInVar(true);
+      refetch();
     }
   };
-  const [login, { loading, error }] = useMutation<LoginMutation, LoginMutationVariables>(
+  const [login, { data, loading, error }] = useMutation<LoginMutation, LoginMutationVariables>(
     LOGIN_MUTATION,
     {
       onCompleted,
@@ -64,6 +68,7 @@ function Login() {
         <img src={uberLogo} alt="uber-eats-logo" className="mx-auto mb-8 h-8" />
 
         <h4 className="text-2xl font-medium mb-8">Welcome back</h4>
+
         <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <span className="form-error">{errors.email?.message}</span>
@@ -81,6 +86,7 @@ function Login() {
               <span className="form-error">Password must be more than 5 characters</span>
             )}
             <span className="form-error">{errors.password?.message}</span>
+
             <input
               type="password"
               placeholder="Password"
@@ -94,9 +100,13 @@ function Login() {
           <Button canClick={isValid} loading={loading} actionText="Log in" />
 
           <span className="form-error mt-2">{error?.message}</span>
+          <span className="form-error mt-2">{data?.login.error}</span>
         </form>
 
-        <div className="text-center mt-5">
+        <div className="text-center mt-2">
+          <Link to="/forgot-password" className="link ">
+            <p>Forgot password?</p>
+          </Link>
           New to Uber?{" "}
           <Link to="/create-account" className="link">
             Create an account

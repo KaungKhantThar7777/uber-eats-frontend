@@ -4,7 +4,7 @@ import { LOCATSTORAGE_TOKEN } from "./constants";
 
 const token = localStorage.getItem(LOCATSTORAGE_TOKEN);
 export const isLoggedInVar = makeVar(Boolean(token));
-export const authToken = makeVar(token);
+export const authToken = makeVar(token ?? "");
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
@@ -14,7 +14,7 @@ const authLink = setContext((request, { headers }) => {
   return {
     headers: {
       ...headers,
-      token,
+      token: authToken(),
     },
   };
 });

@@ -114,7 +114,7 @@ function CreateAccount() {
 
         <div className="text-center mt-5">
           Already have an account?{" "}
-          <Link to="/login" className="link">
+          <Link to="/" className="link">
             Log in
           </Link>
         </div>

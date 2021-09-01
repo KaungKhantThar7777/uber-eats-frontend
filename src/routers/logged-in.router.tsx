@@ -1,36 +1,48 @@
-import { gql, useQuery } from "@apollo/client";
-import { MeQuery } from "../api-types";
-import { isLoggedInVar } from "../apollo";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Header } from "../components/Header";
+import { useMe } from "../hooks/useMe";
+import { Restaurants } from "../pages/client/restaurants";
+import { NotFound } from "../pages/not-found";
+import { ConfirmEmail } from "../pages/user/confirm-email";
+import EditProfile from "../pages/user/edit-profile";
 
-const ME_QUERY = gql`
-  query MeQuery {
-    me {
-      id
-      email
-      role
-      verified
-    }
-  }
-`;
+const ClientRoutes = [
+  <Route path="/" exact key="restaurants">
+    <Restaurants />
+  </Route>,
+];
 function LoggedInRouter() {
-  const { data, loading, error } = useQuery<MeQuery>(ME_QUERY);
+  const { data, loading, error } = useMe();
 
   if (loading) {
     return (
       <div className="  h-screen flex justify-center items-center">
-        <svg className="animate-bounce h-7 w-7 bg-green-600 rounded-full" viewBox="0 0 24 24" />
+        <span className="animate-spin w-7 h-7 border-b-2 border-green-600 rounded-full mr-3"></span>
+        Loading...
       </div>
     );
   }
 
   if (error) {
-    return <div className="  h-screen flex justify-center items-center">{error.message}</div>;
+    return <div className="  h-screen flex justify-center items-center">{error?.message}</div>;
   }
+
   return (
-    <div>
-      {data?.me?.email}
-      <button onClick={() => isLoggedInVar(false)}>Click to log out</button>
-    </div>
+    <Router>
+      <Header />
+      <Switch>
+        {data?.me?.role === "Client" && ClientRoutes}
+        <Route path="/confirm" key="confirm">
+          <ConfirmEmail />
+        </Route>
+        <Route path="/edit-profile" key="editProfile">
+          <EditProfile />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
