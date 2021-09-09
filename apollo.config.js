@@ -1,6 +1,6 @@
 module.exports = {
   client: {
-    includes: ["./src/**/*.tsx", "./src/**/*.ts"],
+    includes: ["./src/**/*{.tsx,.ts}"],
     tagName: "gql",
     service: {
       name: "uber-eats-backend",

@@ -22,7 +22,7 @@
     @apply text-lime-500 hover:underline;
   }
   .container {
-    @apply px-5 w-full max-w-7xl mx-auto;
+    @apply px-1 md:px-5 w-full max-w-7xl mx-auto;
   }
 }
 

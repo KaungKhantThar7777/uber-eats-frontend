@@ -25,6 +25,193 @@ export interface MeQuery {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: OneCategory
+// ====================================================
+
+export interface OneCategory_oneCategory_category_restaurants_category {
+  __typename: "Category";
+  name: string;
+  slug: string;
+}
+
+export interface OneCategory_oneCategory_category_restaurants {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  address: string;
+  coverImg: string;
+  category: OneCategory_oneCategory_category_restaurants_category | null;
+  isPromoted: boolean;
+}
+
+export interface OneCategory_oneCategory_category {
+  __typename: "Category";
+  id: number;
+  name: string;
+  slug: string;
+  restaurants: OneCategory_oneCategory_category_restaurants[];
+}
+
+export interface OneCategory_oneCategory {
+  __typename: "CategoryResult";
+  error: string | null;
+  ok: boolean;
+  totalPages: number;
+  category: OneCategory_oneCategory_category | null;
+}
+
+export interface OneCategory {
+  oneCategory: OneCategory_oneCategory;
+}
+
+export interface OneCategoryVariables {
+  input: CategoryInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: OneRestaurant
+// ====================================================
+
+export interface OneRestaurant_oneRestaurant_restaurant_category {
+  __typename: "Category";
+  name: string;
+  slug: string;
+}
+
+export interface OneRestaurant_oneRestaurant_restaurant {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  address: string;
+  coverImg: string;
+  category: OneRestaurant_oneRestaurant_restaurant_category | null;
+  isPromoted: boolean;
+}
+
+export interface OneRestaurant_oneRestaurant {
+  __typename: "OneRestaurantResult";
+  error: string | null;
+  ok: boolean;
+  restaurant: OneRestaurant_oneRestaurant_restaurant | null;
+}
+
+export interface OneRestaurant {
+  oneRestaurant: OneRestaurant_oneRestaurant;
+}
+
+export interface OneRestaurantVariables {
+  input: OneRestaurantInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: AllRestaurants
+// ====================================================
+
+export interface AllRestaurants_allRestaurants_restaurants_category {
+  __typename: "Category";
+  name: string;
+  slug: string;
+}
+
+export interface AllRestaurants_allRestaurants_restaurants {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  address: string;
+  coverImg: string;
+  category: AllRestaurants_allRestaurants_restaurants_category | null;
+  isPromoted: boolean;
+}
+
+export interface AllRestaurants_allRestaurants {
+  __typename: "AllRestaurantsResult";
+  error: string | null;
+  ok: boolean;
+  totalPages: number;
+  restaurants: AllRestaurants_allRestaurants_restaurants[] | null;
+}
+
+export interface AllRestaurants_allCategories_categories {
+  __typename: "Category";
+  id: number;
+  name: string;
+  img: string | null;
+  slug: string;
+}
+
+export interface AllRestaurants_allCategories {
+  __typename: "AllCategoriesResult";
+  error: string | null;
+  ok: boolean;
+  categories: AllRestaurants_allCategories_categories[] | null;
+}
+
+export interface AllRestaurants {
+  allRestaurants: AllRestaurants_allRestaurants;
+  allCategories: AllRestaurants_allCategories;
+}
+
+export interface AllRestaurantsVariables {
+  input: AllRestaurantsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: SearchRestaurants
+// ====================================================
+
+export interface SearchRestaurants_searchRestaurants_restaurants_category {
+  __typename: "Category";
+  name: string;
+  slug: string;
+}
+
+export interface SearchRestaurants_searchRestaurants_restaurants {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  address: string;
+  coverImg: string;
+  category: SearchRestaurants_searchRestaurants_restaurants_category | null;
+  isPromoted: boolean;
+}
+
+export interface SearchRestaurants_searchRestaurants {
+  __typename: "SearchRestaurantsResult";
+  error: string | null;
+  ok: boolean;
+  totalPages: number;
+  restaurants: SearchRestaurants_searchRestaurants_restaurants[] | null;
+}
+
+export interface SearchRestaurants {
+  searchRestaurants: SearchRestaurants_searchRestaurants;
+}
+
+export interface SearchRestaurantsVariables {
+  input: SearchRestaurantsInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: CreateAccountMutation
 // ====================================================
 
@@ -164,6 +351,31 @@ export interface ResetPasswordVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL fragment: RestaurantParts
+// ====================================================
+
+export interface RestaurantParts_category {
+  __typename: "Category";
+  name: string;
+  slug: string;
+}
+
+export interface RestaurantParts {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  address: string;
+  coverImg: string;
+  category: RestaurantParts_category | null;
+  isPromoted: boolean;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL fragment: Verified
 // ====================================================
 
@@ -202,6 +414,15 @@ export enum UserRole {
   Owner = "Owner",
 }
 
+export interface AllRestaurantsInput {
+  page?: number | null;
+}
+
+export interface CategoryInput {
+  page?: number | null;
+  slug: string;
+}
+
 export interface CreateAccountInput {
   email: string;
   password: string;
@@ -222,9 +443,18 @@ export interface LoginInput {
   password: string;
 }
 
+export interface OneRestaurantInput {
+  restaurantId: number;
+}
+
 export interface ResetPasswordInput {
   code: string;
   password: string;
+}
+
+export interface SearchRestaurantsInput {
+  page?: number | null;
+  query: string;
 }
 
 //==============================================================

@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { ResetPassword, ResetPasswordVariables } from "../../api-types";
 import { Button } from "../../components/Button";
-import { logout } from "../../components/Header";
 
 interface IResetForm {
   password: string;
