@@ -259,6 +259,68 @@ export interface LoginMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: CreateRestaurant
+// ====================================================
+
+export interface CreateRestaurant_createRestaurant {
+  __typename: "CreateRestaurantResult";
+  error: string | null;
+  ok: boolean;
+  restaurantId: number | null;
+  slug: string | null;
+  coverImg: string | null;
+}
+
+export interface CreateRestaurant {
+  createRestaurant: CreateRestaurant_createRestaurant;
+}
+
+export interface CreateRestaurantVariables {
+  input: CreateRestaurantInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: MyRestaurants
+// ====================================================
+
+export interface MyRestaurants_myRestaurants_restaurants_category {
+  __typename: "Category";
+  name: string;
+  slug: string;
+}
+
+export interface MyRestaurants_myRestaurants_restaurants {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  address: string;
+  coverImg: string;
+  category: MyRestaurants_myRestaurants_restaurants_category | null;
+  isPromoted: boolean;
+}
+
+export interface MyRestaurants_myRestaurants {
+  __typename: "MyRestaurantsResult";
+  error: string | null;
+  ok: boolean;
+  restaurants: MyRestaurants_myRestaurants_restaurants[];
+}
+
+export interface MyRestaurants {
+  myRestaurants: MyRestaurants_myRestaurants;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: VerifyEmail
 // ====================================================
 
@@ -427,6 +489,13 @@ export interface CreateAccountInput {
   email: string;
   password: string;
   role: UserRole;
+}
+
+export interface CreateRestaurantInput {
+  name: string;
+  address: string;
+  coverImg: string;
+  categoryName: string;
 }
 
 export interface EditProfileInput {

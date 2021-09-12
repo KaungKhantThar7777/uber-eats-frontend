@@ -1,4 +1,4 @@
-import { faArrowCircleRight, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowCircleRight, faUser, faFish } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { authToken, client, isLoggedInVar } from "../apollo";
@@ -27,7 +27,12 @@ export const Header = () => {
           <Link to="/" className="w-32">
             <img src={uberLogo} alt="uber-eat-logo" />
           </Link>
-          <div className="flex justify-between w-10 md:w-16">
+          <div className="flex justify-between w-20 md:w-28">
+            {data?.me?.role === "Owner" && (
+              <Link to="/add-restaurant">
+                <FontAwesomeIcon icon={faFish} />
+              </Link>
+            )}
             <Link to="/edit-profile">
               <FontAwesomeIcon icon={faUser} />
             </Link>
