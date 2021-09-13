@@ -1,4 +1,4 @@
-import { gql, useApolloClient, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { MyRestaurants } from "../../api-types";
 import { Restaurant } from "../../components/Restaurant";
@@ -20,11 +20,7 @@ export const MY_RESTAURANTS = gql`
 
 const MyRestaurantsPage = () => {
   const { data, loading } = useQuery<MyRestaurants>(MY_RESTAURANTS);
-  const client = useApolloClient();
-  const cache = client.readQuery({
-    query: MY_RESTAURANTS,
-  });
-  console.log(cache);
+
   if (loading) {
     return <Spinner />;
   }

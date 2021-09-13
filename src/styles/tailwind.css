@@ -12,6 +12,10 @@
     @apply bg-lime-600 hover:bg-lime-700;
   }
 
+  .btn-secondary {
+    @apply bg-gray-800 text-white hover:bg-gray-700;
+  }
+
   .btn-disabled {
     @apply bg-gray-300 pointer-events-none;
   }

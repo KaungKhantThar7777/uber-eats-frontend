@@ -1,0 +1,81 @@
+import { useQuery } from "@apollo/client";
+import gql from "graphql-tag";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import { MyRestaurant, MyRestaurantVariables } from "../../api-types";
+import { Dish } from "../../components/Dish";
+import { Spinner } from "../../components/Spinner";
+import { DISH_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
+
+interface IParams {
+  id: string;
+}
+
+export const MY_RESTAURANT = gql`
+  query MyRestaurant($input: MyRestaurantInput!) {
+    myRestaurant(input: $input) {
+      error
+      ok
+      restaurant {
+        ...RestaurantParts
+        menu {
+          ...DishParts
+        }
+      }
+    }
+  }
+  ${RESTAURANT_FRAGMENT}
+  ${DISH_FRAGMENT}
+`;
+const MyRestaurantPage = () => {
+  const { id } = useParams<IParams>();
+  const { data, loading } = useQuery<MyRestaurant, MyRestaurantVariables>(MY_RESTAURANT, {
+    variables: {
+      input: {
+        id: +id,
+      },
+    },
+  });
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  return (
+    <>
+      <div
+        className="bg-gray-800 py-40 bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${data?.myRestaurant.restaurant?.coverImg})`,
+        }}
+      ></div>
+      <div className="container my-5">
+        <h2 className="text-2xl font-medium">{data?.myRestaurant.restaurant?.name}</h2>
+        <div className="my-3">
+          <Link to={`/restaurants/${id}/add-dish`} className="btn btn-primary mr-3 px-3">
+            Add dish &rarr;
+          </Link>
+          <button className="btn btn-secondary px-3">Buy Promotion &rarr; </button>
+        </div>
+        {data?.myRestaurant.restaurant?.menu.length === 0 ? (
+          <div>
+            <p className="text-xl text-gray-600">No dishes found here.</p>
+            <Link to={`/restaurants/${id}/add-dish`} className="link">
+              create one! &rarr;
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-5 gap-y-10 mb-5 md:mb-10">
+            {data?.myRestaurant?.restaurant?.menu?.map(
+              ({ id, name, photo, price, description }) => (
+                <Dish key={id} name={name} description={description} price={+price} photo={photo} />
+              )
+            )}
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default MyRestaurantPage;

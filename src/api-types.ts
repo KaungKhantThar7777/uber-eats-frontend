@@ -259,6 +259,29 @@ export interface LoginMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: CreateDish
+// ====================================================
+
+export interface CreateDish_createDish {
+  __typename: "CreateDishResult";
+  error: string | null;
+  ok: boolean;
+}
+
+export interface CreateDish {
+  createDish: CreateDish_createDish;
+}
+
+export interface CreateDishVariables {
+  input: CreateDishInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: CreateRestaurant
 // ====================================================
 
@@ -277,6 +300,70 @@ export interface CreateRestaurant {
 
 export interface CreateRestaurantVariables {
   input: CreateRestaurantInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL query operation: MyRestaurant
+// ====================================================
+
+export interface MyRestaurant_myRestaurant_restaurant_category {
+  __typename: "Category";
+  name: string;
+  slug: string;
+}
+
+export interface MyRestaurant_myRestaurant_restaurant_menu_options_choices {
+  __typename: "Choice";
+  name: string;
+  extra: number | null;
+}
+
+export interface MyRestaurant_myRestaurant_restaurant_menu_options {
+  __typename: "DishOptions";
+  name: string;
+  extra: number | null;
+  choices: MyRestaurant_myRestaurant_restaurant_menu_options_choices[] | null;
+}
+
+export interface MyRestaurant_myRestaurant_restaurant_menu {
+  __typename: "Dish";
+  id: number;
+  name: string;
+  price: number;
+  photo: string | null;
+  description: string;
+  options: MyRestaurant_myRestaurant_restaurant_menu_options[] | null;
+}
+
+export interface MyRestaurant_myRestaurant_restaurant {
+  __typename: "Restaurant";
+  id: number;
+  name: string;
+  address: string;
+  coverImg: string;
+  category: MyRestaurant_myRestaurant_restaurant_category | null;
+  isPromoted: boolean;
+  menu: MyRestaurant_myRestaurant_restaurant_menu[];
+}
+
+export interface MyRestaurant_myRestaurant {
+  __typename: "MyRestaurantResult";
+  error: string | null;
+  ok: boolean;
+  restaurant: MyRestaurant_myRestaurant_restaurant | null;
+}
+
+export interface MyRestaurant {
+  myRestaurant: MyRestaurant_myRestaurant;
+}
+
+export interface MyRestaurantVariables {
+  input: MyRestaurantInput;
 }
 
 /* tslint:disable */
@@ -438,6 +525,38 @@ export interface RestaurantParts {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL fragment: DishParts
+// ====================================================
+
+export interface DishParts_options_choices {
+  __typename: "Choice";
+  name: string;
+  extra: number | null;
+}
+
+export interface DishParts_options {
+  __typename: "DishOptions";
+  name: string;
+  extra: number | null;
+  choices: DishParts_options_choices[] | null;
+}
+
+export interface DishParts {
+  __typename: "Dish";
+  id: number;
+  name: string;
+  price: number;
+  photo: string | null;
+  description: string;
+  options: DishParts_options[] | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL fragment: Verified
 // ====================================================
 
@@ -485,10 +604,24 @@ export interface CategoryInput {
   slug: string;
 }
 
+export interface ChoiceInput {
+  name: string;
+  extra?: number | null;
+}
+
 export interface CreateAccountInput {
   email: string;
   password: string;
   role: UserRole;
+}
+
+export interface CreateDishInput {
+  name: string;
+  description: string;
+  price: number;
+  photo?: string | null;
+  options?: DishOptionsInput[] | null;
+  restaurantId: number;
 }
 
 export interface CreateRestaurantInput {
@@ -496,6 +629,12 @@ export interface CreateRestaurantInput {
   address: string;
   coverImg: string;
   categoryName: string;
+}
+
+export interface DishOptionsInput {
+  name: string;
+  choices?: ChoiceInput[] | null;
+  extra?: number | null;
 }
 
 export interface EditProfileInput {
@@ -510,6 +649,10 @@ export interface ForgotPasswordInput {
 export interface LoginInput {
   email: string;
   password: string;
+}
+
+export interface MyRestaurantInput {
+  id: number;
 }
 
 export interface OneRestaurantInput {

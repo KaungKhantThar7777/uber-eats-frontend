@@ -7,7 +7,9 @@ import RestaurantPage from "../pages/client/restaurant";
 import Restaurants from "../pages/client/restaurants";
 import Search from "../pages/client/search";
 import { NotFound } from "../pages/not-found";
+import AddDish from "../pages/owner/add-dish";
 import AddRestaurant from "../pages/owner/add-restaurant";
+import MyRestaurantPage from "../pages/owner/my-restaurant";
 import MyRestaurantsPage from "../pages/owner/my-restaurants";
 import { ConfirmEmail } from "../pages/user/confirm-email";
 import EditProfile from "../pages/user/edit-profile";
@@ -31,8 +33,14 @@ const OwnerRoutes = [
   <Route path="/" exact key="my-restaurants">
     <MyRestaurantsPage />
   </Route>,
+  <Route path="/restaurants/:id" key="my-restaurant" exact>
+    <MyRestaurantPage />
+  </Route>,
   <Route path="/add-restaurant" key="add-restaurant">
     <AddRestaurant />
+  </Route>,
+  <Route path="/restaurants/:id/add-dish" key="add-dish">
+    <AddDish />
   </Route>,
 ];
 function LoggedInRouter() {
