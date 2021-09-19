@@ -340,6 +340,13 @@ export interface MyRestaurant_myRestaurant_restaurant_menu {
   options: MyRestaurant_myRestaurant_restaurant_menu_options[] | null;
 }
 
+export interface MyRestaurant_myRestaurant_restaurant_orders {
+  __typename: "Order";
+  id: number;
+  createdAt: any;
+  total: number | null;
+}
+
 export interface MyRestaurant_myRestaurant_restaurant {
   __typename: "Restaurant";
   id: number;
@@ -349,6 +356,7 @@ export interface MyRestaurant_myRestaurant_restaurant {
   category: MyRestaurant_myRestaurant_restaurant_category | null;
   isPromoted: boolean;
   menu: MyRestaurant_myRestaurant_restaurant_menu[];
+  orders: MyRestaurant_myRestaurant_restaurant_orders[];
 }
 
 export interface MyRestaurant_myRestaurant {
@@ -549,6 +557,22 @@ export interface DishParts {
   photo: string | null;
   description: string;
   options: DishParts_options[] | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL fragment: OrderParts
+// ====================================================
+
+export interface OrderParts {
+  __typename: "Order";
+  id: number;
+  createdAt: any;
+  total: number | null;
 }
 
 /* tslint:disable */

@@ -5,7 +5,14 @@ import { Link } from "react-router-dom";
 import { MyRestaurant, MyRestaurantVariables } from "../../api-types";
 import { Dish } from "../../components/Dish";
 import { Spinner } from "../../components/Spinner";
-import { DISH_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
+import { DISH_FRAGMENT, ORDER_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
+import {
+  VictoryAxis,
+  VictoryChart,
+  VictoryLine,
+  VictoryTheme,
+  VictoryVoronoiContainer,
+} from "victory";
 
 interface IParams {
   id: string;
@@ -21,11 +28,15 @@ export const MY_RESTAURANT = gql`
         menu {
           ...DishParts
         }
+        orders {
+          ...OrderParts
+        }
       }
     }
   }
   ${RESTAURANT_FRAGMENT}
   ${DISH_FRAGMENT}
+  ${ORDER_FRAGMENT}
 `;
 const MyRestaurantPage = () => {
   const { id } = useParams<IParams>();
@@ -73,6 +84,28 @@ const MyRestaurantPage = () => {
             )}
           </div>
         )}
+
+        <div>
+          <h2 className="text-center text-2xl font-medium">Sales</h2>
+          <VictoryChart
+            theme={VictoryTheme.material}
+            domainPadding={20}
+            width={window.innerWidth}
+            height={400}
+            containerComponent={<VictoryVoronoiContainer labels={({ datum }) => ` $${datum.y}`} />}
+          >
+            <VictoryLine
+              interpolation="natural"
+              data={data?.myRestaurant.restaurant?.orders.map((o) => ({
+                x: o.createdAt,
+                y: o.total,
+              }))}
+            ></VictoryLine>
+            <VictoryAxis dependentAxis tickFormat={(y) => `$${y}`} />
+
+            <VictoryAxis tickFormat={(x) => new Date(x).toLocaleDateString()} />
+          </VictoryChart>
+        </div>
       </div>
     </>
   );

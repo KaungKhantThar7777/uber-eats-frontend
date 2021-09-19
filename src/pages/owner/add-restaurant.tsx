@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { CreateRestaurant, CreateRestaurantVariables } from "../../api-types";
 import { Button } from "../../components/Button";
+import { uploadImage } from "../../utils/uploadImage";
 import { MY_RESTAURANTS } from "./my-restaurants";
 
 interface IFormProps {
@@ -75,16 +76,8 @@ const AddRestaurant = () => {
     }
   );
   const onSubmit: SubmitHandler<IFormProps> = async ({ file, ...rest }) => {
-    const actualFile = file[0];
-    const formData = new FormData();
-    formData.append("file", actualFile);
-    setLoading(true);
-    const { url }: { url: string } = await (
-      await fetch("http://localhost:4000/uploads", {
-        method: "POST",
-        body: formData,
-      })
-    ).json();
+   const url = await uploadImage(file[0])
+    
     createRestaurant({
       variables: {
         input: {
