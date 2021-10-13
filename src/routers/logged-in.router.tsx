@@ -7,6 +7,7 @@ import RestaurantPage from "../pages/client/restaurant";
 import Restaurants from "../pages/client/restaurants";
 import Search from "../pages/client/search";
 import { NotFound } from "../pages/not-found";
+import Order from "../pages/order";
 import AddDish from "../pages/owner/add-dish";
 import AddRestaurant from "../pages/owner/add-restaurant";
 import MyRestaurantPage from "../pages/owner/my-restaurant";
@@ -65,6 +66,10 @@ function LoggedInRouter() {
         </Route>
         <Route path="/edit-profile">
           <EditProfile />
+        </Route>
+
+        <Route path="/order/:id">
+          <Order />
         </Route>
         <Route>
           <NotFound />

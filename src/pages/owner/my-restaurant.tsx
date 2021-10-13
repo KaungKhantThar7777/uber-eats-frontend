@@ -1,8 +1,9 @@
-import { useQuery } from "@apollo/client";
+import React from "react";
+import { useQuery, useSubscription } from "@apollo/client";
 import gql from "graphql-tag";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { MyRestaurant, MyRestaurantVariables } from "../../api-types";
+import { MyRestaurant, MyRestaurantVariables, PendingOrder } from "../../api-types";
 import { Dish } from "../../components/Dish";
 import { Spinner } from "../../components/Spinner";
 import { DISH_FRAGMENT, ORDER_FRAGMENT, RESTAURANT_FRAGMENT } from "../../fragments";
@@ -38,8 +39,19 @@ export const MY_RESTAURANT = gql`
   ${DISH_FRAGMENT}
   ${ORDER_FRAGMENT}
 `;
+
+const PENDING_ORDER = gql`
+  subscription PendingOrder {
+    pendingOrders {
+      ...OrderParts
+    }
+  }
+  ${ORDER_FRAGMENT}
+`;
 const MyRestaurantPage = () => {
   const { id } = useParams<IParams>();
+  const history = useHistory();
+  const { data: newData } = useSubscription<PendingOrder>(PENDING_ORDER);
   const { data, loading } = useQuery<MyRestaurant, MyRestaurantVariables>(MY_RESTAURANT, {
     variables: {
       input: {
@@ -47,6 +59,13 @@ const MyRestaurantPage = () => {
       },
     },
   });
+
+  console.log(newData);
+  React.useEffect(() => {
+    if (newData) {
+      history.push(`/order/${newData.pendingOrders.id}`);
+    }
+  }, [history, newData]);
 
   if (loading) {
     return <Spinner />;
@@ -79,7 +98,14 @@ const MyRestaurantPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-x-5 gap-y-10 mb-5 md:mb-10">
             {data?.myRestaurant?.restaurant?.menu?.map(
               ({ id, name, photo, price, description }) => (
-                <Dish key={id} name={name} description={description} price={+price} photo={photo} />
+                <Dish
+                  id={id}
+                  key={id}
+                  name={name}
+                  description={description}
+                  price={+price}
+                  photo={photo}
+                />
               )
             )}
           </div>

@@ -83,6 +83,29 @@ export interface OneRestaurant_oneRestaurant_restaurant_category {
   slug: string;
 }
 
+export interface OneRestaurant_oneRestaurant_restaurant_menu_options_choices {
+  __typename: "Choice";
+  name: string;
+  extra: number | null;
+}
+
+export interface OneRestaurant_oneRestaurant_restaurant_menu_options {
+  __typename: "DishOptions";
+  name: string;
+  extra: number | null;
+  choices: OneRestaurant_oneRestaurant_restaurant_menu_options_choices[] | null;
+}
+
+export interface OneRestaurant_oneRestaurant_restaurant_menu {
+  __typename: "Dish";
+  id: number;
+  name: string;
+  price: number;
+  photo: string | null;
+  description: string;
+  options: OneRestaurant_oneRestaurant_restaurant_menu_options[] | null;
+}
+
 export interface OneRestaurant_oneRestaurant_restaurant {
   __typename: "Restaurant";
   id: number;
@@ -91,6 +114,7 @@ export interface OneRestaurant_oneRestaurant_restaurant {
   coverImg: string;
   category: OneRestaurant_oneRestaurant_restaurant_category | null;
   isPromoted: boolean;
+  menu: OneRestaurant_oneRestaurant_restaurant_menu[];
 }
 
 export interface OneRestaurant_oneRestaurant {
@@ -106,6 +130,30 @@ export interface OneRestaurant {
 
 export interface OneRestaurantVariables {
   input: OneRestaurantInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: CreateOrder
+// ====================================================
+
+export interface CreateOrder_createOrder {
+  __typename: "CreateOrderResult";
+  error: string | null;
+  ok: boolean;
+  id: number;
+}
+
+export interface CreateOrder {
+  createOrder: CreateOrder_createOrder;
+}
+
+export interface CreateOrderVariables {
+  input: CreateOrderInput;
 }
 
 /* tslint:disable */
@@ -259,6 +307,140 @@ export interface LoginMutationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: GetOrder
+// ====================================================
+
+export interface GetOrder_getOrder_order_customer {
+  __typename: "User";
+  email: string;
+  id: number;
+}
+
+export interface GetOrder_getOrder_order_driver {
+  __typename: "User";
+  email: string;
+  id: number;
+}
+
+export interface GetOrder_getOrder_order_restaurant_owner {
+  __typename: "User";
+  id: number;
+}
+
+export interface GetOrder_getOrder_order_restaurant {
+  __typename: "Restaurant";
+  name: string;
+  owner: GetOrder_getOrder_order_restaurant_owner;
+}
+
+export interface GetOrder_getOrder_order {
+  __typename: "Order";
+  id: number;
+  createdAt: any;
+  updatedAt: any;
+  customer: GetOrder_getOrder_order_customer;
+  driver: GetOrder_getOrder_order_driver | null;
+  total: number | null;
+  status: OrderStatus;
+  restaurant: GetOrder_getOrder_order_restaurant;
+}
+
+export interface GetOrder_getOrder {
+  __typename: "GetOrderResult";
+  error: string | null;
+  ok: boolean;
+  order: GetOrder_getOrder_order | null;
+}
+
+export interface GetOrder {
+  getOrder: GetOrder_getOrder;
+}
+
+export interface GetOrderVariables {
+  input: GetOrderInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: EditOrder
+// ====================================================
+
+export interface EditOrder_editOrder {
+  __typename: "EditOrderResult";
+  error: string | null;
+  ok: boolean;
+}
+
+export interface EditOrder {
+  editOrder: EditOrder_editOrder;
+}
+
+export interface EditOrderVariables {
+  input: EditOrderInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL subscription operation: OrderUpdates
+// ====================================================
+
+export interface OrderUpdates_orderUpdates_customer {
+  __typename: "User";
+  email: string;
+  id: number;
+}
+
+export interface OrderUpdates_orderUpdates_driver {
+  __typename: "User";
+  email: string;
+  id: number;
+}
+
+export interface OrderUpdates_orderUpdates_restaurant_owner {
+  __typename: "User";
+  id: number;
+}
+
+export interface OrderUpdates_orderUpdates_restaurant {
+  __typename: "Restaurant";
+  name: string;
+  owner: OrderUpdates_orderUpdates_restaurant_owner;
+}
+
+export interface OrderUpdates_orderUpdates {
+  __typename: "Order";
+  id: number;
+  createdAt: any;
+  updatedAt: any;
+  customer: OrderUpdates_orderUpdates_customer;
+  driver: OrderUpdates_orderUpdates_driver | null;
+  total: number | null;
+  status: OrderStatus;
+  restaurant: OrderUpdates_orderUpdates_restaurant;
+}
+
+export interface OrderUpdates {
+  orderUpdates: OrderUpdates_orderUpdates;
+}
+
+export interface OrderUpdatesVariables {
+  input: OrderUpdatesInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: CreateDish
 // ====================================================
 
@@ -372,6 +554,26 @@ export interface MyRestaurant {
 
 export interface MyRestaurantVariables {
   input: MyRestaurantInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL subscription operation: PendingOrder
+// ====================================================
+
+export interface PendingOrder_pendingOrders {
+  __typename: "Order";
+  id: number;
+  createdAt: any;
+  total: number | null;
+}
+
+export interface PendingOrder {
+  pendingOrders: PendingOrder_pendingOrders;
 }
 
 /* tslint:disable */
@@ -581,6 +783,50 @@ export interface OrderParts {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL fragment: FullOrderParts
+// ====================================================
+
+export interface FullOrderParts_customer {
+  __typename: "User";
+  email: string;
+  id: number;
+}
+
+export interface FullOrderParts_driver {
+  __typename: "User";
+  email: string;
+  id: number;
+}
+
+export interface FullOrderParts_restaurant_owner {
+  __typename: "User";
+  id: number;
+}
+
+export interface FullOrderParts_restaurant {
+  __typename: "Restaurant";
+  name: string;
+  owner: FullOrderParts_restaurant_owner;
+}
+
+export interface FullOrderParts {
+  __typename: "Order";
+  id: number;
+  createdAt: any;
+  updatedAt: any;
+  customer: FullOrderParts_customer;
+  driver: FullOrderParts_driver | null;
+  total: number | null;
+  status: OrderStatus;
+  restaurant: FullOrderParts_restaurant;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL fragment: Verified
 // ====================================================
 
@@ -612,6 +858,14 @@ export interface EditUser {
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
+
+export enum OrderStatus {
+  Cooked = "Cooked",
+  Cooking = "Cooking",
+  Delivered = "Delivered",
+  Pending = "Pending",
+  PickedUp = "PickedUp",
+}
 
 export enum UserRole {
   Client = "Client",
@@ -648,6 +902,16 @@ export interface CreateDishInput {
   restaurantId: number;
 }
 
+export interface CreateOrderInput {
+  restaurantId: number;
+  items: CreateOrderItemInput[];
+}
+
+export interface CreateOrderItemInput {
+  dishId: number;
+  choices?: OrderItemOptionInputType[] | null;
+}
+
 export interface CreateRestaurantInput {
   name: string;
   address: string;
@@ -661,6 +925,11 @@ export interface DishOptionsInput {
   extra?: number | null;
 }
 
+export interface EditOrderInput {
+  status: OrderStatus;
+  orderId: number;
+}
+
 export interface EditProfileInput {
   email?: string | null;
   password?: string | null;
@@ -668,6 +937,10 @@ export interface EditProfileInput {
 
 export interface ForgotPasswordInput {
   email: string;
+}
+
+export interface GetOrderInput {
+  orderId: number;
 }
 
 export interface LoginInput {
@@ -681,6 +954,15 @@ export interface MyRestaurantInput {
 
 export interface OneRestaurantInput {
   restaurantId: number;
+}
+
+export interface OrderItemOptionInputType {
+  name: string;
+  choice?: string | null;
+}
+
+export interface OrderUpdatesInput {
+  id: number;
 }
 
 export interface ResetPasswordInput {
