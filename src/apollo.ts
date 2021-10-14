@@ -1,7 +1,7 @@
 import { ApolloClient, createHttpLink, InMemoryCache, makeVar, split } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { setContext } from "@apollo/client/link/context";
-import { LOCATSTORAGE_TOKEN } from "./constants";
+import { HTTP_API, WS_API, LOCATSTORAGE_TOKEN } from "./constants";
 import { getMainDefinition } from "@apollo/client/utilities";
 
 const token = localStorage.getItem(LOCATSTORAGE_TOKEN);
@@ -9,11 +9,11 @@ export const isLoggedInVar = makeVar(Boolean(token));
 export const authToken = makeVar(token ?? "");
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: HTTP_API,
 });
 
 const wsLink = new WebSocketLink({
-  uri: "ws://localhost:4000/graphql",
+  uri: WS_API,
   options: {
     reconnect: true,
     connectionParams: {

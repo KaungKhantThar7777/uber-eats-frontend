@@ -85,7 +85,9 @@ const MyRestaurantPage = () => {
           <Link to={`/restaurants/${id}/add-dish`} className="btn btn-primary mr-3 px-3">
             Add dish &rarr;
           </Link>
-          <button className="btn btn-secondary px-3">Buy Promotion &rarr; </button>
+          <Link to="/checkout" className="btn btn-secondary px-3">
+            Buy Promotion &rarr;{" "}
+          </Link>
         </div>
         {data?.myRestaurant.restaurant?.menu.length === 0 ? (
           <div>

@@ -96,7 +96,12 @@ const RestaurantPage = () => {
         const newItems = { ...items };
         const choiceExist = newItems[dishId].find((c) => c.name === name);
         if (choiceExist) {
-          const newChoices = newItems[dishId].filter((c) => c.name !== name);
+          let newChoices;
+          if (choiceExist?.choice !== choice) {
+            newChoices = newItems[dishId].map((c) =>
+              c.name === name ? { ...choiceExist, name, choice } : c
+            );
+          } else newChoices = newItems[dishId].filter((c) => c.name !== name);
           newItems[dishId] = newChoices;
         } else {
           const newChoices = [...newItems[dishId], { name, choice }];

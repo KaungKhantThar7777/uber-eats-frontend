@@ -27,13 +27,13 @@ export const Header = () => {
           <Link to="/" className="w-32">
             <img src={uberLogo} alt="uber-eat-logo" />
           </Link>
-          <div className="flex justify-between w-20 md:w-28">
+          <div className="flex justify-between ">
             {data?.me?.role === "Owner" && (
               <Link to="/add-restaurant">
                 <FontAwesomeIcon icon={faFish} />
               </Link>
             )}
-            <Link to="/edit-profile">
+            <Link to="/edit-profile" className="mx-10">
               <FontAwesomeIcon icon={faUser} />
             </Link>
             <button onClick={logout}>

@@ -28,7 +28,7 @@ export const Dish: React.FC<IDishProps> = ({
   return (
     <div
       className={`p-5 mt-4 border ${
-        isItemSelected ? "border-gray-600" : null
+        isItemSelected ? " border-lime-600 border-2" : null
       } hover:border-gray-600 transition-all flex justify-between flex-1`}
       onClick={() => handleSelectItem && handleSelectItem(id)}
     >
@@ -42,7 +42,9 @@ export const Dish: React.FC<IDishProps> = ({
             <div className="border-b-2 my-1">
               <div
                 className={`flex cursor-pointer ${
-                  Boolean(choices?.find((c) => c.name === option.name)) ? "border-2" : null
+                  Boolean(choices?.find((c) => c.name === option.name && c.choice === undefined))
+                    ? " border-lime-600 border-2"
+                    : null
                 }`}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -56,7 +58,9 @@ export const Dish: React.FC<IDishProps> = ({
                 <p
                   key={c.name}
                   className={`ml-3 my-1 cursor-pointer ${
-                    Boolean(choices?.find((choice) => choice.choice === c.name)) ? "border-2" : null
+                    Boolean(choices?.find((choice) => choice.choice === c.name))
+                      ? " border-lime-600 border-2"
+                      : null
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
